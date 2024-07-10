@@ -66,24 +66,40 @@ class ExampleViewProvider implements vscode.WebviewViewProvider {
       vscode.Uri.joinPath(this.extensionUri, "dist/web")
     );
 
-    console.log(resourcePath.toString());
-
     webviewView.webview.html = fs
       .readFileSync(
         vscode.Uri.joinPath(this.extensionUri, "dist/web/index.html").fsPath,
         "utf-8"
       )
       .replaceAll("/%STATIC_PATH%", resourcePath.toString());
-    webviewView.webview.onDidReceiveMessage(
-      (message) => {
-        switch (message.command) {
-          case "runLS":
-            return;
-        }
-      },
-      undefined,
-      []
-    );
+
+    webviewView.webview.onDidReceiveMessage((message) => {
+      const terminal = vscode.window.createTerminal({
+        name: "mina",
+        cwd: vscode.workspace.workspaceFolders?.[0].uri.fsPath,
+      });
+      switch (message.command) {
+        case "config":
+          terminal.sendText("zk config");
+          terminal.show();
+          return;
+
+        case "compile":
+          terminal.sendText("npm run build");
+          terminal.show();
+          return;
+
+        case "deploy":
+          terminal.sendText("zk deploy");
+          terminal.show();
+      }
+    });
+
+    setTimeout(() => {
+      webviewView.webview.postMessage({
+        type: "hello1111",
+      });
+    }, 1000);
   }
 }
 
