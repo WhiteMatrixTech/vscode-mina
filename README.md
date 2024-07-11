@@ -1,7 +1,22 @@
-## vscode-mina 使用教程
+## Tutorial on Using vscode-mina
 
-从插件市场安装 vscode 插件，安装完成后，在 vscode 中打开 mina 合约项目。
+### Installing Extension
 
-点击 `Config` 配置账号信息
-点击 `Compile` 编译合约
-点击 `Deploy` 部署合约
+Open the Extension panel and click `Install from VSIX` 
+
+![alt text](image.png)
+
+Select the.vsix extension and click Install: 
+
+![alt text](image-1.png)
+
+When you see the following interface, it means the installation is successful: 
+![alt text](image-2.png)
+
+### 使用教程
+
+Click `Config` to configure account information.
+
+Click `Compile` to compile the contract.
+
+Click `Deploy` to deploy the contract. 
